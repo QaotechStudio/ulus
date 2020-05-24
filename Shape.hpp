@@ -11,7 +11,6 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 
-
 class Shape {
 public:
   void setup();
@@ -27,18 +26,16 @@ public:
     
   ofVec3f rotate;
   
-  int NUM_SHAPES = 200;
+  int NUM_SHAPES = 100;
 
   vector<ofVec3f> posShape;
   vector<ofColor> colShape;
-    
-  //ofEasyCam camera;
     
   ofSoundPlayer sound;
   float *fft;
   float *soundSpectrum;
   int bands;
-
 };
+
 
 #endif /* Shape_hpp */
