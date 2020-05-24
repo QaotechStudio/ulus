@@ -17,8 +17,16 @@ void settingWindow::setup(){
   gui.add(uiAction.set("action", false));
   gui.add(uiActionSpeed.set("action speed", 0, 0, 1));
   gui.add(uiColor.set("color", ofVec3f(0), ofVec3f(0), ofVec3f(1)));
-  gui.add(shapes.shapeParams);
+  shapes.shapeParams.setName("Shape Parameters");
     
+  shapes.shapeParams.add(shapes.drawBox.set("Box", false));
+  shapes.shapeParams.add(shapes.decay.set("Decay", 0.0, 0.0, 1.0));
+  shapes.shapeParams.add(shapes.rotateScene.set("Rotate", ofVec3f(0.0), ofVec3f(-1.0), ofVec3f(1.0)));
+    
+  shapes.shapeParams.add(shapes.numberOfShapes.set("# Shapes", 50, 0, 100));
+  gui.add(shapes.shapeParams);
+
+  
   fbo.allocate(640, 360);
   fbo.begin();
   ofClear(255);
