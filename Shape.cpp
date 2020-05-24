@@ -12,37 +12,26 @@ void Shape::setup(){
     sound.play();
     sound.setLoop(true);
     
-        
-    //shape paramaters
-    shapeParams.setName("Shape Parameters");
-    
-    shapeParams.add(drawBox.set("Box", false));
-    shapeParams.add(decay.set("Decay", 0.0, 0.0, 1.0));
-    shapeParams.add(rotateScene.set("Rotate", ofVec3f(0.0), ofVec3f(-1.0), ofVec3f(1.0)));
-    shapeParams.add(numberOfShapes.set("# Shapes", 100, 0, 200));
-    
     // Setup shape positions
     for (int i = 0; i < NUM_SHAPES; i++)
     {
-        posShape.push_back(ofVec3f(ofRandom(-300, 300), ofRandom(-300, 300), ofRandom(-300, 300)));
+        posShape.push_back(ofVec3f(ofRandom(-300, 300), ofRandom(-300, 300), ofRandom(-500, 500)));
         colShape.push_back(ofColor::fromHsb(255 * i / (float)NUM_SHAPES, 255, 255, 255));
-    }
-    
+    }    
     bands = 128;
     
     fft = new float[bands];
     for (int i = 0; i < bands; i++) {
         fft[i] = 0;
     }
-    
-
-
+    ofSetLineWidth(10.0);
 }
 
 void Shape::update(){
     ofSoundUpdate();
      
     sound.setVolume(0.2);
+
      
     soundSpectrum = ofSoundGetSpectrum(bands);
     for (int i = 0; i < bands; i++) {
@@ -59,10 +48,8 @@ void Shape::update(){
 }
 
 void Shape::draw(){
-    //camera.begin();
-    if(drawBox){
-//          for (int i = 0; i < posShape.size(); i++)
         for (int i = 0; i < numberOfShapes; i++) {
+              
               ofSetColor(colShape[i]);
               ofPushMatrix();
               ofTranslate(posShape[i]);
@@ -70,13 +57,17 @@ void Shape::draw(){
                   ofRotateXDeg(rotate.x);
                   ofRotateYDeg(rotate.y);
                   ofRotateZDeg(rotate.z);
-                  ofDrawBox(fft[j] * 20);
+                  if(drawBox){
+                      ofFill();
+                      ofDrawBox(fft[j] * 50);
+                  }else{
+                    ofNoFill();
+                   ofDrawCircle(0, 0, fft[j] * 50);
+                  }
               }
               ofPopMatrix();
             }
-    }
-    //camera.end();
-    
+
 }
 
 
